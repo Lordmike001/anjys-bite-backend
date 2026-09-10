@@ -16,6 +16,9 @@ class SignUpSerializer(serializers.Serializer):
             raise serializers.ValidationError("Email must end with anjy.com")
         
         phone_number = attrs['phone_number']
+        if not phone_number.startswith('+234'):
+            raise serializers.ValidationError('Phone number must start with +234')
+        
         if  len(phone_number) != 14:
             raise serializers.ValidationError("Phone number must be exactly 14 digits including '+' symbol ")
         try:
@@ -24,6 +27,8 @@ class SignUpSerializer(serializers.Serializer):
             raise serializers.ValidationError("Phone number must be digits only")
         
         bvn = attrs['bvn']
+        if not bvn.startswith('2'):
+            raise serializers.ValidationError('BVN must start with 2')
         if len(bvn) != 11:
             raise serializers.ValidationError("BVN must be exactly 11 characters")
         try:
@@ -36,6 +41,6 @@ class SignUpSerializer(serializers.Serializer):
             raise serializers.ValidationError("Password must not be less than 8 characters")
         return attrs
 
-    class LoginSerializers(serializers.Serializer):
+    class LoginSerializer(serializers.Serializer):
         email = serializers.EmailField()
         password = serializers.CharField()
