@@ -41,6 +41,6 @@ class SignUpSerializer(serializers.Serializer):
             raise serializers.ValidationError("Password must not be less than 8 characters")
         return attrs
 
-class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    password = serializers.CharField()
+    class LoginSerializers(serializers.Serializer):
+        email = serializers.EmailField()
+        password = serializers.CharField()
