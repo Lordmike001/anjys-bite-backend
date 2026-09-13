@@ -115,7 +115,6 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,  # Prevents native Django session overrides
     'PERSIST_AUTH': True,       # Keeps you logged in even if you refresh the browser page
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
