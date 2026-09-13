@@ -73,8 +73,8 @@ class LoginViews(generics.GenericAPIView):
             )
         return Response(
             data={
-                "id": str[user.id],
-                "email": str[user.email],
+                "id": str(user.id),
+                "email": str(user.email),
                 "is_admin": user.is_staff,
                 "phone": user.phone,
             }
