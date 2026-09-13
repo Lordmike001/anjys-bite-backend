@@ -37,7 +37,7 @@ class SignUpViews(generics.GenericAPIView):
             bvn=bvn,
             dob=dob,
             account_type = account_type,
-            first_name = fullname,
+            fullname = fullname,
             
         )
 
