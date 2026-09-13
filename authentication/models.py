@@ -18,12 +18,12 @@ class UserManager(BaseUserManager):
             raise TypeError("Full name is required.")
         if not password:
             raise TypeError("Password is required.")
-        if not extra_fields.get("phone_number"):
+        if not extra_fields.get("phone"):
             raise TypeError("Phone number is required.")
         user = self.model(
             email=self.normalize_email(email),
             fullname=fullname,
-            phone_number=extra_fields.get("phone_number"),
+            phone=extra_fields.get("phone"),
         )
         user.set_password(password)
         user.save()
@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     email = models.EmailField(unique=True)
     fullname = models.CharField(max_length=255)
-    phone_number = models.CharField(unique=True)
+    phone = models.CharField(unique=True)
     address = models.CharField(null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
     bvn = models.CharField(null=True, blank=True)
@@ -62,7 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['fullname','phone_number']
+    REQUIRED_FIELDS = ['fullname','phone']
     objects = UserManager()
     
     

@@ -5,7 +5,7 @@ class SignUpSerializer(serializers.Serializer):
     email = serializers.EmailField()
     fullname = serializers.CharField(max_length=255)
     password = serializers.CharField()
-    phone_number = serializers.CharField()
+    phone = serializers.CharField()
     account_type = serializers.ChoiceField(choices=[x[0] for x in ACCOUNT_TYPE], default=ACCOUNT_TYPE[0][0])
     address = serializers.CharField()
     dob = serializers.DateField()
@@ -16,16 +16,16 @@ class SignUpSerializer(serializers.Serializer):
         if not email.endswith("anjy.com"):
             raise serializers.ValidationError("Email must end with anjy.com")
 
-        phone_number = attrs["phone_number"]
-        if not phone_number.startswith("+234"):
+        phone = attrs["phone"]
+        if not phone.startswith("+234"):
             raise serializers.ValidationError("Phone number must start with +234")
 
-        if len(phone_number) != 14:
+        if len(phone) != 14:
             raise serializers.ValidationError(
                 "Phone number must be exactly 14 digits including '+' symbol "
             )
         try:
-            int(phone_number[1:])
+            int(phone[1:])
         except:
             raise serializers.ValidationError("Phone number must be digits only")
 
