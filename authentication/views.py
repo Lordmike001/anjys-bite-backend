@@ -16,6 +16,7 @@ class SignUpViews(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get("email").lower()
+        fullname = serializer.validated_data.get('fullname')
         password = serializer.validated_data.get("password")
         phone_number = serializer.validated_data.get("phone_number")
         address = serializer.validated_data.get("address")
@@ -35,7 +36,9 @@ class SignUpViews(generics.GenericAPIView):
             address=address,
             bvn=bvn,
             dob=dob,
-            account_type = account_type
+            account_type = account_type,
+            first_name = fullname,
+            
         )
 
         user.set_password(password)
