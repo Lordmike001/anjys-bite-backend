@@ -5,6 +5,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 import uuid
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your models here.
 
@@ -66,3 +67,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.fullname
+    
+    def token(self):
+        refresh_token = RefreshToken.for_user(self)
+        return {
+            'access_token': str(refresh_token.access_token),
+            'refresh_token': str(refresh_token)
+        }

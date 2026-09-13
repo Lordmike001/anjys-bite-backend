@@ -3,6 +3,7 @@ from rest_framework import generics, status
 from authentication.serializers import SignUpSerializer, LoginSerializers
 from rest_framework.response import Response
 from authentication.models import User
+from django.contrib.auth import authenticate
 
 # from authentication.models import User
 # Create your views here.
@@ -18,22 +19,23 @@ class SignUpViews(generics.GenericAPIView):
         password = serializer.validated_data.get("password")
         phone_number = serializer.validated_data.get("phone_number")
         address = serializer.validated_data.get("address")
+        account_type = serializer.validated_data.get('account_type')
         bvn = serializer.validated_data.get("bvn")
         dob = serializer.validated_data.get("dob")
-        # return Response(data={"message": "Ok!"}, status=status.HTTP_201_CREATED)
-        email_exists = User.objects.filter(email=email).first()
+       
+        email_exists = User.objects.filter(email=email).exists()
         if email_exists:
             return Response(
-                data={"message": "Email already Exist!!"},
+                data={"message": "Email already exist!"},
                 status=status.HTTP_226_IM_USED,
             )
-        user = User.objects.create(
+        user = User.objects.create (
             email=email,
             phone_number=phone_number,
             address=address,
             bvn=bvn,
             dob=dob,
-            # account_type = account_type
+            account_type = account_type
         )
 
         user.set_password(password)
@@ -53,9 +55,8 @@ class LoginViews(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get("email")
         password = serializer.validated_data.get("password")
-        return Response(data={"message": "Successful"}, status=status.HTTP_202_ACCEPTED)
-        email_exists = User.objects.filter(email=email).first()
 
+        email_exists = User.objects.filter(email=email).first()
         if not email_exists:
             return Response(
                 data={"Message": "Invalid Credentials"},
