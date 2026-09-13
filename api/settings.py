@@ -100,6 +100,22 @@ SIMPLE_JWT = {
     
 }
 
+
+# settings.py
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': "Type 'Bearer ' followed by a space and your token string."
+        }
+    },
+    'USE_SESSION_AUTH': False,  # Prevents native Django session overrides
+    'PERSIST_AUTH': True,       # Keeps you logged in even if you refresh the browser page
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
