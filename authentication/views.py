@@ -77,5 +77,6 @@ class LoginViews(generics.GenericAPIView):
                 "email": str(user.email),
                 "is_admin": user.is_staff,
                 "phone": user.phone,
+                'token': user.token()
             }
         )
