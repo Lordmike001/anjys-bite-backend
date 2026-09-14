@@ -58,6 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     address = models.CharField(null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
     bvn = models.CharField(null=True, blank=True)
+    account_type = models.CharField(max_length=10, choices=ACCOUNT_TYPE, default=ACCOUNT_TYPE[0][0])
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
