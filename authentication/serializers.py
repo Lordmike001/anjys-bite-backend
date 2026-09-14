@@ -6,7 +6,7 @@ class SignUpSerializer(serializers.Serializer):
     fullname = serializers.CharField(max_length=255)
     password = serializers.CharField()
     phone_number = serializers.CharField()
-    account_type = serializers.ChoiceField(choices=ACCOUNT_TYPE , default=ACCOUNT_TYPE[0][0])
+    account_type = serializers.ChoiceField(choices=[x[0] for x in ACCOUNT_TYPE], default=ACCOUNT_TYPE[0][0])    
     address = serializers.CharField()
     dob = serializers.DateField()
     bvn = serializers.CharField()
