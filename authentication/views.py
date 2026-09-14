@@ -16,8 +16,9 @@ class SignUpViews(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get("email").lower()
+        fullname = serializer.validated_data.get('fullname')
         password = serializer.validated_data.get("password")
-        phone_number = serializer.validated_data.get("phone_number")
+        phone = serializer.validated_data.get("phone")
         address = serializer.validated_data.get("address")
         account_type = serializer.validated_data.get('account_type')
         bvn = serializer.validated_data.get("bvn")
@@ -31,11 +32,13 @@ class SignUpViews(generics.GenericAPIView):
             )
         user = User.objects.create (
             email=email,
-            phone_number=phone_number,
+            phone=phone,
             address=address,
             bvn=bvn,
             dob=dob,
-            account_type = account_type
+            account_type = account_type,
+            fullname = fullname,
+            
         )
 
         user.set_password(password)
@@ -70,9 +73,10 @@ class LoginViews(generics.GenericAPIView):
             )
         return Response(
             data={
-                "id": str[user.id],
-                "email": str[user.email],
+                "id": str(user.id),
+                "email": str(user.email),
                 "is_admin": user.is_staff,
-                "phone_number": user.phone_number,
+                "phone": user.phone,
+                'token': user.token()
             }
         )
