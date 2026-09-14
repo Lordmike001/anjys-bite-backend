@@ -53,7 +53,7 @@ ACCOUNT_TYPE = [
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     email = models.EmailField(unique=True)
-    fullname = models.CharField(max_length=255)
+    fullname = models.CharField(max_length=255,null=True,blank=True)
     phone_number = models.CharField(unique=True)
     address = models.CharField(null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
