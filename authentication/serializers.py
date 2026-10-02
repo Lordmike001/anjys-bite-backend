@@ -2,7 +2,7 @@ from rest_framework import serializers
 from authentication.models import ACCOUNT_TYPE
 
 
-class SignUpSerializer(serializers.ModelSerializer):
+class SignUpSerializer(serializers.Serializer):
     email = serializers.EmailField()
     fullname = serializers.CharField(max_length=255)
     password = serializers.CharField()
